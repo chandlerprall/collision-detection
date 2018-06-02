@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>collision/SphereSphere.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AABB.html">AABB</a><ul class='methods'><li data-type='method'><a href="AABB.html#updateAabb">updateAabb</a></li></ul></li><li><a href="CollisionReport.html">CollisionReport</a></li><li><a href="Quaternion.html">Quaternion</a><ul class='methods'><li data-type='method'><a href="Quaternion.html#copy">copy</a></li><li data-type='method'><a href="Quaternion.html#invert">invert</a></li><li data-type='method'><a href="Quaternion.html#normalize">normalize</a></li><li data-type='method'><a href="Quaternion.html#set">set</a></li></ul></li><li><a href="Sphere.html">Sphere</a><ul class='methods'><li data-type='method'><a href="Sphere.html#updateAabb">updateAabb</a></li></ul></li><li><a href="Vec3.html">Vec3</a><ul class='methods'><li data-type='method'><a href="Vec3.html#add">add</a></li><li data-type='method'><a href="Vec3.html#addVec3">addVec3</a></li><li data-type='method'><a href="Vec3.html#copy">copy</a></li><li data-type='method'><a href="Vec3.html#distanceToSquared">distanceToSquared</a></li><li data-type='method'><a href="Vec3.html#length">length</a></li><li data-type='method'><a href="Vec3.html#lengthSquared">lengthSquared</a></li><li data-type='method'><a href="Vec3.html#normalize">normalize</a></li><li data-type='method'><a href="Vec3.html#rotateByQuaternion">rotateByQuaternion</a></li><li data-type='method'><a href="Vec3.html#scale">scale</a></li><li data-type='method'><a href="Vec3.html#set">set</a></li><li data-type='method'><a href="Vec3.html#sub">sub</a></li><li data-type='method'><a href="Vec3.html#subVec3">subVec3</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="collision-detection.html">collision-detection</a></li><li><a href="collision-detection.collision.html">collision</a></li><li><a href="collision-detection.collision.AabbAabb.html">AabbAabb</a><ul class='methods'><li data-type='method'><a href="collision-detection.collision.AabbAabb.html#.isColliding">isColliding</a></li></ul></li><li><a href="collision-detection.collision.SphereSphere.html">SphereSphere</a><ul class='methods'><li data-type='method'><a href="collision-detection.collision.SphereSphere.html#.collide">collide</a></li><li data-type='method'><a href="collision-detection.collision.SphereSphere.html#.isColliding">isColliding</a></li></ul></li><li><a href="collision-detection.math.html">math</a></li><li><a href="collision-detection.shapes.html">shapes</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">collision/SphereSphere.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import CollisionReport from './CollisionReport';
+import Quaternion from '../math/Quaternion';
+
+const quat = new Quaternion();
+
+/**
+ * @namespace SphereSphere
+ * @memberOf collision-detection.collision
+ *
+ * @description Module for detecting collisions between {@link Sphere}s
+ * ```
+ * import {collision} from 'collision-detection';
+ * const {SphereSphere} = collision;
+ *
+ * // or
+ *
+ * import {SphereSphere} from 'collision-detection';
+ * ```
+ */
+const SphereSphere = {
+	/**
+	 * Determines if two spheres are overlapping
+	 *
+	 * @function isColliding
+	 * @memberOf collision-detection.collision.SphereSphere
+	 * @param {Sphere} sphere_a first sphere
+	 * @param {Vec3} sphere_a_position world position of first sphere
+	 * @param {Sphere} sphere_b second sphere
+	 * @param {Vec3} sphere_b_position world position of second sphere
+	 * @returns {boolean} whether or not the spheres overlap
+	 */
+	isColliding: function sphereSphereIsColliding(
+		sphere_a,
+		sphere_a_position,
+		sphere_b,
+		sphere_b_position
+	) {
+		const radii = sphere_a.radius + sphere_b.radius;
+		const radiiSquared = radii * radii;
+		const distanceSquared = sphere_a_position.distanceToSquared(
+			sphere_b_position
+		);
+
+		return distanceSquared &lt;= radiiSquared;
+	},
+
+	/**
+	 * Provides details on the overlap between two spheres; if there is no overlap `null` is returned instead.
+	 *
+	 * @function collide
+	 * @memberOf collision-detection.collision.SphereSphere
+	 * @param {Sphere} sphere_a first sphere
+	 * @param {Vec3} sphere_a_position world position of first sphere
+	 * @param {Quaternion} sphere_a_rotation rotation of the first sphere
+	 * @param {Sphere} sphere_b second sphere
+	 * @param {Vec3} sphere_b_position world position of second sphere
+	 * @param {Quaternion} sphere_b_rotation rotation of the second sphere
+	 * @returns {CollisionReport|null} a CollisionReport if the spheres overlap, otherwise null
+	 */
+	collide: function SphereSphereCollide(
+		sphere_a,
+		sphere_a_position,
+		sphere_a_rotation,
+		sphere_b,
+		sphere_b_position,
+		sphere_b_rotation
+	) {
+		const radii = sphere_a.radius + sphere_b.radius;
+		const radiiSquared = radii * radii;
+		const distanceSquared = sphere_a_position.distanceToSquared(
+			sphere_b_position
+		);
+
+		if (distanceSquared > radiiSquared) return null;
+
+		const report = new CollisionReport();
+
+		report.depth = Math.sqrt(distanceSquared) - Math.sqrt(radiiSquared);
+
+		report.world_normal.sub(sphere_b_position, sphere_a_position).normalize();
+
+		report.world_point
+			.copy(report.world_normal)
+			.scale(sphere_a.radius)
+			.addVec3(sphere_a_position);
+
+		// rotate world normal into A's local frame to find local collision point
+		quat.copy(sphere_a_rotation).invert();
+		report.point_on_a
+			.copy(report.world_normal)
+			.rotateByQuaternion(quat)
+			.scale(sphere_a.radius);
+
+		// rotate world normal into B's local frame to find local collision point
+		quat.copy(sphere_b_rotation).invert();
+		report.point_on_b
+			.copy(report.world_normal)
+			.scale(-1)
+			.rotateByQuaternion(quat)
+			.scale(sphere_b.radius);
+
+		return report;
+	}
+};
+
+export default SphereSphere;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Jun 02 2018 12:59:54 GMT-0600 (MDT) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

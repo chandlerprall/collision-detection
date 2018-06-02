@@ -1,0 +1,12 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 2016,
+    "sourceType": "module"
+  },
+  "plugins": ["prettier"],
+  "extends": "eslint:recommended",
+  "rules": {
+    "prettier/prettier": "error",
+    "semi": ["error", "always"]
+  }
+}

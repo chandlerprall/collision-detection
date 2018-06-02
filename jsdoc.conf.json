@@ -1,0 +1,11 @@
+{
+  "source": {
+    "include": "./src"
+  },
+  "opts": {
+    "template": "node_modules/docdash",
+    "destination": "./docs",
+    "recurse": true
+  },
+  "plugins": ["plugins/markdown"]
+}

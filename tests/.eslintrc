@@ -1,0 +1,7 @@
+{
+  "globals": {
+    "describe": false,
+    "expect": false,
+    "it": false
+  }
+}

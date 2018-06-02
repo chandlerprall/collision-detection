@@ -1,0 +1,29 @@
+{
+  "name": "collision-detection",
+  "version": "0.2.0",
+  "description": "3D collision detection",
+  "keywords": [
+    "collision",
+    "detection"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "docs": "jsdoc -c jsdoc.conf.json",
+    "lint": "eslint --fix .",
+    "test": "jest"
+  },
+  "author": "Chandler Prall <chandler.prall@gmail.com>",
+  "license": "Zlib",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-jest": "^22.4.3",
+    "babel-preset-env": "^1.6.1",
+    "docdash": "^0.4.0",
+    "eslint": "^4.19.1",
+    "eslint-plugin-prettier": "^2.6.0",
+    "jest": "^22.4.3",
+    "jsdoc": "^3.5.5",
+    "prettier": "^1.12.1"
+  }
+}

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>math/Quaternion.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AABB.html">AABB</a><ul class='methods'><li data-type='method'><a href="AABB.html#updateAabb">updateAabb</a></li></ul></li><li><a href="CollisionReport.html">CollisionReport</a></li><li><a href="Quaternion.html">Quaternion</a><ul class='methods'><li data-type='method'><a href="Quaternion.html#copy">copy</a></li><li data-type='method'><a href="Quaternion.html#invert">invert</a></li><li data-type='method'><a href="Quaternion.html#normalize">normalize</a></li><li data-type='method'><a href="Quaternion.html#set">set</a></li></ul></li><li><a href="Sphere.html">Sphere</a><ul class='methods'><li data-type='method'><a href="Sphere.html#updateAabb">updateAabb</a></li></ul></li><li><a href="Vec3.html">Vec3</a><ul class='methods'><li data-type='method'><a href="Vec3.html#add">add</a></li><li data-type='method'><a href="Vec3.html#addVec3">addVec3</a></li><li data-type='method'><a href="Vec3.html#copy">copy</a></li><li data-type='method'><a href="Vec3.html#distanceToSquared">distanceToSquared</a></li><li data-type='method'><a href="Vec3.html#length">length</a></li><li data-type='method'><a href="Vec3.html#lengthSquared">lengthSquared</a></li><li data-type='method'><a href="Vec3.html#normalize">normalize</a></li><li data-type='method'><a href="Vec3.html#rotateByQuaternion">rotateByQuaternion</a></li><li data-type='method'><a href="Vec3.html#scale">scale</a></li><li data-type='method'><a href="Vec3.html#set">set</a></li><li data-type='method'><a href="Vec3.html#sub">sub</a></li><li data-type='method'><a href="Vec3.html#subVec3">subVec3</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="collision-detection.html">collision-detection</a></li><li><a href="collision-detection.collision.html">collision</a></li><li><a href="collision-detection.collision.AabbAabb.html">AabbAabb</a><ul class='methods'><li data-type='method'><a href="collision-detection.collision.AabbAabb.html#.isColliding">isColliding</a></li></ul></li><li><a href="collision-detection.collision.SphereSphere.html">SphereSphere</a><ul class='methods'><li data-type='method'><a href="collision-detection.collision.SphereSphere.html#.collide">collide</a></li><li data-type='method'><a href="collision-detection.collision.SphereSphere.html#.isColliding">isColliding</a></li></ul></li><li><a href="collision-detection.math.html">math</a></li><li><a href="collision-detection.shapes.html">shapes</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">math/Quaternion.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>class Quaternion {
+	/**
+	 * @constructs
+	 * @memberOf collision-detection.math
+	 *
+	 * @description Quaternion representation; its methods assume and enforce it to be a unit quaternion
+	 * ```
+	 * import {math} from 'collision-detection';
+	 * const {Quaternion} = math;
+	 *
+	 * // or
+	 *
+	 * import {Quaternion} from 'collision-detection';
+	 * ```
+	 *
+	 * @param {number} [x=0]
+	 * @param {number} [y=0]
+	 * @param {number} [z=0]
+	 * @param {number} [w=1]
+	 */
+	constructor(x = 0, y = 0, z = 0, w = 1) {
+		this.x = x;
+		this.y = y;
+		this.z = z;
+		this.w = w;
+
+		this.normalize();
+	}
+
+	/**
+	 * Sets all members of this {@link Quaternion} and normalizes ({@link Quaternion#normalize})
+	 * @param {number} x
+	 * @param {number} y
+	 * @param {number} z
+	 * @param {number} w
+	 * @return {Quaternion} the modified {@link Quaternion}, for chaining
+	 */
+	set(x, y, z, w) {
+		this.x = x;
+		this.y = y;
+		this.z = z;
+		this.w = w;
+
+		return this.normalize();
+	}
+
+	/**
+	 * Sets this {@link Quaternion}'s members to the values from another {@link Quaternion}
+	 * @param {Quaternion} quat the {@link Quaternion} to copy
+	 * @returns {Quaternion} the modified {@link Quaternion}, for chaining
+	 */
+	copy(quat) {
+		this.x = quat.x;
+		this.y = quat.y;
+		this.z = quat.z;
+		this.w = quat.w;
+
+		return this;
+	}
+
+	/**
+	 * Changes this {@link Quaternion} to a `unit quaternion`, maintaining the ratio between its members but changing its magnitude to 1
+	 * @returns {Quaternion} the modified {@link Quaternion}, for chaining
+	 */
+	normalize() {
+		const length = Math.sqrt(
+			this.x * this.x + this.y * this.y + this.z * this.z + this.w * this.w
+		);
+		const normalizer = 1 / length;
+
+		if (normalizer !== Infinity) {
+			this.x *= normalizer;
+			this.y *= normalizer;
+			this.z *= normalizer;
+			this.w *= normalizer;
+		}
+
+		return this;
+	}
+
+	/**
+	 * Inverts this {@link Quaternion}, assumes it is already normalized
+	 * @returns {Quaternion} the modified {@link Quaternion}, for chaining
+	 */
+	invert() {
+		this.x *= -1;
+		this.y *= -1;
+		this.z *= -1;
+
+		return this;
+	}
+}
+
+export default Quaternion;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Jun 02 2018 12:59:54 GMT-0600 (MDT) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
