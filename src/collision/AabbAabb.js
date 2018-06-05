@@ -30,40 +30,22 @@ const AabbAabb = {
 		aabb_b,
 		aabb_b_position
 	) {
-		if (
-			aabb_a_position.x + aabb_a.halfWidth <
-			aabb_b_position.x - aabb_b.halfWidth
-		)
+		if (aabb_a_position.x + aabb_a.max.x < aabb_b_position.x + aabb_b.min.x)
 			return false;
 
-		if (
-			aabb_a_position.y + aabb_a.halfHeight <
-			aabb_b_position.y - aabb_b.halfHeight
-		)
+		if (aabb_a_position.y + aabb_a.max.y < aabb_b_position.y + aabb_b.min.y)
 			return false;
 
-		if (
-			aabb_a_position.z + aabb_a.halfLength <
-			aabb_b_position.z - aabb_b.halfLength
-		)
+		if (aabb_a_position.z + aabb_a.max.z < aabb_b_position.z + aabb_b.min.z)
 			return false;
 
-		if (
-			aabb_a_position.x - aabb_a.halfWidth >
-			aabb_b_position.x + aabb_b.halfWidth
-		)
+		if (aabb_a_position.x + aabb_a.min.x > aabb_b_position.x + aabb_b.max.x)
 			return false;
 
-		if (
-			aabb_a_position.y - aabb_a.halfHeight >
-			aabb_b_position.y + aabb_b.halfHeight
-		)
+		if (aabb_a_position.y + aabb_a.min.y > aabb_b_position.y + aabb_b.max.y)
 			return false;
 
-		if (
-			aabb_a_position.z - aabb_a.halfLength >
-			aabb_b_position.z + aabb_b.halfLength
-		)
+		if (aabb_a_position.z + aabb_a.min.z > aabb_b_position.z + aabb_b.max.z)
 			return false;
 
 		return true;

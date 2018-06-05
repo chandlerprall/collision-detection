@@ -1,4 +1,5 @@
 import Quaternion from '../../src/math/Quaternion';
+import Mat3 from '../../src/math/Mat3';
 import Vec3 from '../../src/math/Vec3';
 
 describe('Vec3', () => {
@@ -164,6 +165,26 @@ describe('Vec3', () => {
 			expect(new Vec3(1, 0, 0).rotateByQuaternion(deg90Y).x).toBeCloseTo(0, 5);
 			expect(new Vec3(1, 0, 0).rotateByQuaternion(deg90Y).y).toBeCloseTo(0, 5);
 			expect(new Vec3(1, 0, 0).rotateByQuaternion(deg90Y).z).toBeCloseTo(-1, 5);
+		});
+	});
+
+	describe('rotateByMat3', () => {
+		it('rotates the Vec3 by a Mat3', () => {
+			const unitMat3 = new Mat3();
+			const deg90X = new Mat3().fromQuaternion(new Quaternion(1, 0, 0, 1));
+			const deg90Y = new Mat3().fromQuaternion(new Quaternion(0, 1, 0, 1));
+
+			expect(new Vec3(1, 0, 0).rotateByMat3(unitMat3).x).toBeCloseTo(1, 5);
+			expect(new Vec3(1, 0, 0).rotateByMat3(unitMat3).y).toBeCloseTo(0, 5);
+			expect(new Vec3(1, 0, 0).rotateByMat3(unitMat3).z).toBeCloseTo(0, 5);
+
+			expect(new Vec3(1, 0, 0).rotateByMat3(deg90X).x).toBeCloseTo(1, 5);
+			expect(new Vec3(1, 0, 0).rotateByMat3(deg90X).y).toBeCloseTo(0, 5);
+			expect(new Vec3(1, 0, 0).rotateByMat3(deg90X).z).toBeCloseTo(0, 5);
+
+			expect(new Vec3(1, 0, 0).rotateByMat3(deg90Y).x).toBeCloseTo(0, 5);
+			expect(new Vec3(1, 0, 0).rotateByMat3(deg90Y).y).toBeCloseTo(0, 5);
+			expect(new Vec3(1, 0, 0).rotateByMat3(deg90Y).z).toBeCloseTo(-1, 5);
 		});
 	});
 });

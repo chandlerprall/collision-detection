@@ -25,11 +25,16 @@ class Sphere {
 	/**
 	 * Updates the passed {@link AABB} to fit around this {@link Sphere}.
 	 * @param {AABB} aabb the {@link AABB} to update
+	 * @param {Mat4} transform the {@link Mat4} transform
 	 */
-	updateAabb(aabb) {
-		aabb.halfWidth = this.radius;
-		aabb.halfHeight = this.radius;
-		aabb.halfLength = this.radius;
+	updateAabb(aabb, transform) {
+		const translation = transform.getTranslation();
+
+		aabb.min.set(-this.radius, -this.radius, -this.radius);
+		aabb.max.set(this.radius, this.radius, this.radius);
+
+		aabb.min.addVec3(translation);
+		aabb.max.addVec3(translation);
 	}
 }
 

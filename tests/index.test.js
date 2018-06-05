@@ -4,8 +4,8 @@ import * as math from '../src/math';
 import * as shapes from '../src/shapes';
 
 const {AabbAabb, SphereSphere} = collision;
-const {Quaternion, Vec3} = math;
-const {AABB, Sphere} = shapes;
+const {Quaternion, Mat3, Mat4, Vec3} = math;
+const {AABB, Sphere, Box} = shapes;
 
 describe('src/index.test.js', () => {
 	describe('exports', () => {
@@ -32,6 +32,14 @@ describe('src/index.test.js', () => {
 				expect(index.Quaternion).toBe(Quaternion);
 			});
 
+			it('exports Mat3', () => {
+				expect(index.Mat3).toBe(Mat3);
+			});
+
+			it('exports Mat4', () => {
+				expect(index.Mat4).toBe(Mat4);
+			});
+
 			it('exports Vec3', () => {
 				expect(index.Vec3).toBe(Vec3);
 			});
@@ -44,6 +52,10 @@ describe('src/index.test.js', () => {
 
 			it('exports AABB', () => {
 				expect(index.AABB).toBe(AABB);
+			});
+
+			it('exports Box', () => {
+				expect(index.Box).toBe(Box);
 			});
 
 			it('exports Sphere', () => {

@@ -1,4 +1,5 @@
 import AABB from './AABB';
+import Box from './Box';
 import Sphere from './Sphere';
 
 /**
@@ -13,4 +14,4 @@ import Sphere from './Sphere';
  * These are the shapes available for collision detection.
  */
 
-export {AABB, Sphere};
+export {AABB, Box, Sphere};

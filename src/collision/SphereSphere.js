@@ -77,24 +77,24 @@ const SphereSphere = {
 
 		report.depth = Math.sqrt(distanceSquared) - Math.sqrt(radiiSquared);
 
-		report.world_normal.sub(sphere_b_position, sphere_a_position).normalize();
+		report.worldNormal.sub(sphere_b_position, sphere_a_position).normalize();
 
-		report.world_point
-			.copy(report.world_normal)
+		report.worldPoint
+			.copy(report.worldNormal)
 			.scale(sphere_a.radius)
 			.addVec3(sphere_a_position);
 
 		// rotate world normal into A's local frame to find local collision point
 		quat.copy(sphere_a_rotation).invert();
-		report.point_on_a
-			.copy(report.world_normal)
+		report.pointOnA
+			.copy(report.worldNormal)
 			.rotateByQuaternion(quat)
 			.scale(sphere_a.radius);
 
 		// rotate world normal into B's local frame to find local collision point
 		quat.copy(sphere_b_rotation).invert();
-		report.point_on_b
-			.copy(report.world_normal)
+		report.pointOnB
+			.copy(report.worldNormal)
 			.scale(-1)
 			.rotateByQuaternion(quat)
 			.scale(sphere_b.radius);

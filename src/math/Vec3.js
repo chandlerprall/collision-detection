@@ -188,6 +188,23 @@ class Vec3 {
 
 		return this;
 	}
+
+	/**
+	 * Rotates this {@link Vec3} by the passed {@link Mat3}
+	 * @param {Mat3} mat3 the {@link Mat3} to apply rotation from
+	 * @returns {Vec3} the modified {@link Vec3}, for chaining
+	 */
+	rotateByMat3(mat3) {
+		const x = this.x;
+		const y = this.y;
+		const z = this.z;
+
+		this.x = mat3.e00 * x + mat3.e01 * y + mat3.e02 * z;
+		this.y = mat3.e10 * x + mat3.e11 * y + mat3.e12 * z;
+		this.z = mat3.e20 * x + mat3.e21 * y + mat3.e22 * z;
+
+		return this;
+	}
 }
 
 export default Vec3;

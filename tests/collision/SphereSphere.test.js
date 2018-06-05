@@ -176,10 +176,10 @@ describe('SphereSphere', () => {
 				)
 			).toEqual({
 				depth: 0,
-				world_normal: new Vec3(0, 1, 0),
-				world_point: new Vec3(0, 1, 0),
-				point_on_a: new Vec3(0, 1, 0),
-				point_on_b: new Vec3(0, 0, 0.9999999999999998)
+				worldNormal: new Vec3(0, 1, 0),
+				worldPoint: new Vec3(0, 1, 0),
+				pointOnA: new Vec3(0, 1, 0),
+				pointOnB: new Vec3(0, 0, 0.9999999999999998)
 			});
 
 			expect(
@@ -193,10 +193,10 @@ describe('SphereSphere', () => {
 				)
 			).toEqual({
 				depth: 0,
-				world_normal: new Vec3(0, 0, -1),
-				world_point: new Vec3(0, 0, 3),
-				point_on_a: new Vec3(0.9999999999999998, 0, 0),
-				point_on_b: new Vec3(0, 0, 1)
+				worldNormal: new Vec3(0, 0, -1),
+				worldPoint: new Vec3(0, 0, 3),
+				pointOnA: new Vec3(0.9999999999999998, 0, 0),
+				pointOnB: new Vec3(0, 0, 1)
 			});
 
 			expect(
@@ -210,22 +210,22 @@ describe('SphereSphere', () => {
 				)
 			).toEqual({
 				depth: -0.0001741375809740653,
-				world_normal: new Vec3(
+				worldNormal: new Vec3(
 					-0.5773502691896257,
 					-0.5773502691896257,
 					0.5773502691896257
 				),
-				world_point: new Vec3(
+				worldPoint: new Vec3(
 					0.5772497308103743,
 					-0.5773502691896257,
 					0.5773502691896257
 				),
-				point_on_a: new Vec3(
+				pointOnA: new Vec3(
 					-0.5773502691896257,
 					-0.5773502691896257,
 					0.5773502691896257
 				),
-				point_on_b: new Vec3(
+				pointOnB: new Vec3(
 					0.5773502691896257,
 					0.5773502691896257,
 					-0.5773502691896257
